@@ -12,6 +12,20 @@ export class LibraryCollection {
   // - Добавляет книгу в коллекцию, возвращает id книги. 
   // Если книга с таким названием уже существует, возвращает ошибку.
 addBook(title: string, author: string): string | Error {
+  if (title.length === 0 || author.length === 0) {
+    let errorMessage = 'Отсутствует: '
+
+    if (title.length === 0 && author.length === 0) {
+      errorMessage += 'название и автор'
+    } else if (title.length === 0) {
+      errorMessage += 'название'
+    } else if (author.length === 0) {
+      errorMessage += 'автор'
+    }
+
+    throw new Error(errorMessage)
+  }
+
   if (this.bookTitleSet.has(title)) {
     throw new Error('Книга с таким названием уже существует в базе данных')
   }
